@@ -39,7 +39,7 @@ function Dashboard() {
 
     const { accountData } = useContext(AccountContext);
     const { transactionData } = useContext(TransactionContext);
-    const balance = accountData.reduce((acc, account) => acc + account.balance, 0);
+    const balance = accountData ? accountData.reduce((acc, account) => acc + account.balance, 0) : "0";
     const totalBalanceFormatted = balance.toLocaleString('en-US', {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2
@@ -48,13 +48,13 @@ function Dashboard() {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2
     }) : "0";
-    const totalAccounts = accountData.length;
+    const totalAccounts = accountData ? accountData.length : 0;
 
     return (
         <div class="flex flex-col w-full h-screen bg-gray-50">
             <Topbar />
             <div class="pt-12 mx-12">
-                {accountData.length !== 0 ? (
+                {totalAccounts !== 0 ? (
                     <div class="flex flex-row mt-6 mb-12">
                         <DataCard title={"Current balance"} value={`$${totalBalanceFormatted}`}/>
                         <DataCard title={"Current accounts"} value={totalAccounts} />
